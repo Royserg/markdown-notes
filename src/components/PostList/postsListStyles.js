@@ -7,7 +7,13 @@ import {
 
 const postListStyles = theme => ({
   container: {
-    width: '40%',
+    width: '50%',
+    [theme.breakpoints.down('md')]: {
+      width: '70%'
+    },
+    [theme.breakpoints.down('sm')]: {
+      width: '90%'
+    }
   },
   list: {
     marginTop: '20px',
