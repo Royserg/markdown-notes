@@ -24,3 +24,5 @@ yarn-error.log*
 
 # markdown directory
 /markdown
+
+/dist

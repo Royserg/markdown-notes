@@ -38,7 +38,7 @@ const getPost = (category, filename) => {
   })
 }
 
-module.exports = {
+export {
   getPosts,
   getPost
 }

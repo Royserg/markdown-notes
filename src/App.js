@@ -1,4 +1,5 @@
 import React from 'react'
+/* TODO: Change BrowserRouter to HashRouter if doesn't work */
 import {
   BrowserRouter as Router,
   Switch,
