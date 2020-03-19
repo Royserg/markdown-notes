@@ -38,7 +38,39 @@ const getPost = (category, filename) => {
   })
 }
 
+const addPost = (data) => {
+  return new Promise((resolve, reject) => {
+
+    const { filename, fileContent } = generateMdFileContent(data)
+    const path = MD_ROOT + data.category + `/${filename}.md`
+
+
+    fs.writeFile(path, fileContent, (error) => {
+      if (error) {
+        return reject(error)
+      }
+      return resolve({ msg: 'success' })
+    })
+  })
+}
+
+
+const generateMdFileContent = ({title, category, content}) => {
+
+  const today = new Date()
+  const date = `${('0' + today.getDate()).substr(-2)}.${('0' + (today.getMonth() + 1)).substr(-2)}.${today.getFullYear()}`
+  const filename = title.replace(/\s+/g, '-').toLowerCase()
+
+  const fileContent = `---\ndate: "${date}"\ntitle: "${title}"\npath: "/node/${filename}"\n---\n${content}`
+
+  return {
+    filename,
+    fileContent
+  }
+}
+
 export {
   getPosts,
-  getPost
+  getPost,
+  addPost
 }

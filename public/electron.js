@@ -5,8 +5,10 @@ const isDev = require('electron-is-dev')
 function createWindow() {
   // Create the browser window.
   const win = new BrowserWindow({
-    width: 800,
-    height: 600,
+    minWidth: 960,
+    minHeight: 670,
+    width: 960,
+    height: 670,
     webPreferences: {
       nodeIntegration: true
     }

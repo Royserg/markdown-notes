@@ -7,12 +7,19 @@ import Commands from 'views/Commands/Commands'
 import Tools from 'views/Tools/Tools'
 import Dashboard from 'views/Dashboard/Dashboard'
 import Post from 'views/Post/Post'
+import AddPost from 'views/AddPost/AddPost'
 
 const routes = [
   {
     path: '/',
     name: 'Dashboard',
     component: Dashboard,
+    inSidebar: false
+  },
+  {
+    path: '/:category/add_post',
+    name: 'Add Post',
+    component: AddPost,
     inSidebar: false
   },
   {

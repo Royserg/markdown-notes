@@ -2,14 +2,15 @@
 
 const pageStyles = theme => ({
   page: {
+    height: '100%',
     padding: '2rem 2rem',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'flex-start'
   },
   title: {
-    marginBottom: '5rem'
+    marginBottom: '3rem'
   }
 })
 
