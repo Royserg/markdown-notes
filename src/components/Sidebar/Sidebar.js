@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import classNames from 'classnames'
 import { Link, NavLink, useLocation } from 'react-router-dom'
+import { getCategories } from 'repositories/categories'
 
 import { makeStyles } from '@material-ui/core/styles'
 import List from '@material-ui/core/List'
@@ -12,32 +13,42 @@ import sidebarStyles from './sidebarStyles'
 const useStyles = makeStyles(sidebarStyles)
 
 const Sidebar = ({ brandText, routes }) => {
+  // styles
   const classes = useStyles()
   const location = useLocation()
+
+  const [categories, setCategories] = useState([])
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      const categories = await getCategories()
+      setCategories(categories)
+    }
+    fetchCategories()
+  }, [])
 
   const isActiveRoute = routePath => {
     return location.pathname === routePath
   }
 
-  const links = (
+  const categoryLinks = (
     <List className={classes.list}>
-      {routes.map((route, index) => {
+      {categories && categories.map((category, index) => {
+        const url = `/${category}`
         const listItemClass = classNames(
           classes.itemLink, {
-            [classes.purple]: isActiveRoute(route.path)
-          }
+          [classes.purple]: isActiveRoute(url)
+        }
         )
 
         return (
-          route.inSidebar && (
-            <NavLink key={index} to={route.path} className={classes.item}>
-              <ListItem button className={listItemClass}>
-                <ListItemText disableTypography className={classes.itemText}>
-                  {route.name}
-                </ListItemText>
-              </ListItem>
-            </NavLink>
-          )
+          <NavLink key={index} to={url} className={classes.item}>
+            <ListItem button className={listItemClass}>
+              <ListItemText disableTypography className={classes.itemText}>
+                {category}
+              </ListItemText>
+            </ListItem>
+          </NavLink>
         )
       })}
     </List>
@@ -55,10 +66,34 @@ const Sidebar = ({ brandText, routes }) => {
     <div className={classes.drawerPaper}>
       <nav>
         {brand}
-        {links}
+        {categoryLinks}
       </nav>
     </div>
   )
 }
 
 export default Sidebar
+
+/* const links = (
+  <List className={classes.list}>
+    {routes.map((route, index) => {
+      const listItemClass = classNames(
+        classes.itemLink, {
+          [classes.purple]: isActiveRoute(route.path)
+        }
+      )
+
+      return (
+        route.inSidebar && (
+          <NavLink key={index} to={route.path} className={classes.item}>
+            <ListItem button className={listItemClass}>
+              <ListItemText disableTypography className={classes.itemText}>
+                {route.name}
+              </ListItemText>
+            </ListItem>
+          </NavLink>
+        )
+      )
+    })}
+  </List>
+) */

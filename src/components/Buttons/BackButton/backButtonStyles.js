@@ -10,7 +10,10 @@ const backButtonStyles = theme => ({
     '&:hover': {
       background: primaryColor[0],
       color: whiteColor
-    }
+    },
+    [theme.breakpoints.down('md')]: {
+      left: `${drawerWidth + 40}px`
+    },
   }
 })
 

@@ -15,7 +15,7 @@ const usePosts = (category) => {
       }
     }
     fetchPosts()
-  }, [])
+  }, [category])
 
   return {
     posts

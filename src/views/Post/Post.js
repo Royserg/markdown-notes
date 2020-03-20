@@ -25,7 +25,7 @@ const Post = props => {
       setPostData(post)
     }
     fetchPost()
-  }, [])
+  }, [category, filename])
 
   const post = postData.attributes ? (
     <Page pageTitle={postData.attributes.title}>
