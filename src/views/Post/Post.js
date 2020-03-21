@@ -20,6 +20,7 @@ const Post = props => {
   const [postData, setPostData] = useState({})
 
   useEffect(() => {
+    
     const fetchPost = async () => {
       const post = await getPost(category, `${filename}.md`)
       setPostData(post)

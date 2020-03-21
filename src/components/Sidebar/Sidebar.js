@@ -15,6 +15,7 @@ const useStyles = makeStyles(sidebarStyles)
 const Sidebar = ({ brandText, routes }) => {
   // styles
   const classes = useStyles()
+  // TODO: doesn't want to find category
   const location = useLocation()
 
   const [categories, setCategories] = useState([])
@@ -27,8 +28,8 @@ const Sidebar = ({ brandText, routes }) => {
     fetchCategories()
   }, [])
 
-  const isActiveRoute = routePath => {
-    return location.pathname === routePath
+  const isActiveCategory = route => {
+    return location.pathname.startsWith(route)
   }
 
   const categoryLinks = (
@@ -37,12 +38,12 @@ const Sidebar = ({ brandText, routes }) => {
         const url = `/${category}`
         const listItemClass = classNames(
           classes.itemLink, {
-          [classes.purple]: isActiveRoute(url)
+          [classes.purple]: isActiveCategory(url)
         }
         )
 
         return (
-          <NavLink key={index} to={url} className={classes.item}>
+          <NavLink key={index} to={`/${category}`} className={classes.item}>
             <ListItem button className={listItemClass}>
               <ListItemText disableTypography className={classes.itemText}>
                 {category}
@@ -73,27 +74,3 @@ const Sidebar = ({ brandText, routes }) => {
 }
 
 export default Sidebar
-
-/* const links = (
-  <List className={classes.list}>
-    {routes.map((route, index) => {
-      const listItemClass = classNames(
-        classes.itemLink, {
-          [classes.purple]: isActiveRoute(route.path)
-        }
-      )
-
-      return (
-        route.inSidebar && (
-          <NavLink key={index} to={route.path} className={classes.item}>
-            <ListItem button className={listItemClass}>
-              <ListItemText disableTypography className={classes.itemText}>
-                {route.name}
-              </ListItemText>
-            </ListItem>
-          </NavLink>
-        )
-      )
-    })}
-  </List>
-) */

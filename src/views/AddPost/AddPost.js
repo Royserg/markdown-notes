@@ -1,32 +1,27 @@
 import React, { useState } from 'react'
 import Page from 'components/Page/Page'
-import { useParams, Redirect } from 'react-router-dom'
+import { Redirect, useParams } from 'react-router-dom'
 import { addPost } from 'repositories/posts'
-// UI elements
-import TextField from '@material-ui/core/TextField'
-import Button from '@material-ui/core/Button'
-import { makeStyles } from '@material-ui/core/styles'
 
-import styles from './addPostStyles'
+import PostForm from 'components/Forms/PostForm/PostForm'
 
-const useStyles = makeStyles(styles)
 
 const AddPost = props => {
-  // styles
-  const classes = useStyles()
+
   const { category } = useParams()
   const [redirect, setRedirect] = useState(false)
-  const [title, setTitle] = useState('')
-  const [content, setContent] = useState('')
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e, data) => {
     e.preventDefault()
-    
+
+    const { category, title, content } = data
     const postData = {
       category,
       title,
       content
     }
+
+    console.log('posting', postData)
 
     const result = await addPost(postData)
     if (result.msg === 'success') {
@@ -39,24 +34,8 @@ const AddPost = props => {
       ?
        <Redirect to={`/${category}`} />
       :
-      <Page pageTitle="Add Post Node.js">
-        <form onSubmit={handleSubmit} noValidate autoComplete="off" className={classes.form}>
-          <TextField
-            label="Title"
-            placeholder="Title"
-            value={title}
-            onChange={e => setTitle(e.target.value)}
-          />
-          <TextField
-            label="Content"
-            multiline
-            rows="4"
-            placeholder="Content"
-            onChange={e => setContent(e.target.value)}
-            value={content}
-          />
-          <Button color='primary' type='submit' variant='outlined' >Submit</Button>
-        </form>
+      <Page pageTitle='Add Post'>
+        <PostForm handleSubmit={handleSubmit} />
       </Page>
   )
 }

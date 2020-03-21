@@ -6,7 +6,7 @@ import { hopscotch } from 'react-syntax-highlighter/dist/esm/styles/prism'
 
 /* Override that property, for enabling vertical scroll */
 const codeTag = {
-  whiteSpace: 'pre'
+  whitespace: 'pre'
 }
 
 const CodeBlock = ({ language, value }) => {

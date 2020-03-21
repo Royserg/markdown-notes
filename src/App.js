@@ -34,7 +34,7 @@ function App () {
     <Router>
       <CssBaseline />
       <div className={classes.wrapper}>
-        <Sidebar brandText="MyDevJournal" routes={routes} />
+        <Sidebar brandText='MyDevJournal' routes={routes} />
         <div className={classes.mainContent}>
           {switchRoutes}
         </div>
