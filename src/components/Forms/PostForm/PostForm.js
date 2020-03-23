@@ -9,8 +9,12 @@ import Select from '@material-ui/core/Select'
 import MenuItem from '@material-ui/core/MenuItem'
 import FormControl from '@material-ui/core/FormControl'
 import { makeStyles } from '@material-ui/core/styles'
+import InputBase from '@material-ui/core/InputBase'
+import ColoredTextField from 'components/ColoredTextField/ColoredTextField'
+import ColoredSelectField from 'components/ColoredSelectField/ColoredSelectField'
 
 import styles from './postFromStyles'
+import MarkdownEditor from 'components/MarkdownEditor/MarkdownEditor'
 
 const useStyles = makeStyles(styles)
 
@@ -44,14 +48,26 @@ const PostForm = ({ handleSubmit }) => {
       autoComplete="off"
       className={classes.form}
     >
+
+      {/* Title */}
+      <ColoredTextField
+        className={classes.form_title}
+        variant='outlined'
+        name='title'
+        label="Title"
+        placeholder="Title"
+        value={state.title}
+        onChange={handleChange}
+      />
       {/* Category Select */}
-      <FormControl variant='outlined'>
-      <InputLabel id='categoryLabel'>Category</InputLabel>
+      <FormControl variant='outlined' className={classes.form_select_container}>
+        <InputLabel id='categoryLabel'>Category</InputLabel>
         <Select
           label='Category'
           labelId='categoryLabel'
           name='category'
           value={state.category}
+          className={classes.form_select}
           onChange={handleChange}
         >
           <MenuItem value={category}>{category}</MenuItem>
@@ -65,22 +81,8 @@ const PostForm = ({ handleSubmit }) => {
         </Select>
       </FormControl>
 
-      <TextField
-        name='title'
-        label="Title"
-        placeholder="Title"
-        value={state.title}
-        onChange={handleChange}
-      />
-      <TextField
-        name='content'
-        label="Content"
-        multiline
-        rows="4"
-        placeholder="Content"
-        onChange={handleChange}
-        value={state.content}
-      />
+      {/* Content */}
+      <MarkdownEditor value={state.content} handleChange={handleChange} />
       <Button color='primary' type='submit' variant='outlined' >Submit</Button>
     </form>
   )
