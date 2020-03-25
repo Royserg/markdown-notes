@@ -12,14 +12,10 @@ const AddPostButton = props => {
   // styles
   const classes = useStyles()
 
-  const handlePress = (category) => {
-    console.log('FAB pressed', category)
-  }
-
   const { category } = props
   return (
     <Link to={`/${category}/add_post`}>
-      <Fab className={classes.fab} onClick={() => handlePress(category)} >
+      <Fab className={classes.fab}>
           <AddIcon />
       </Fab>
     </Link>

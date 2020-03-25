@@ -2,19 +2,16 @@ import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { getCategories } from 'repositories/categories'
 // UI elements
-import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
-import InputLabel from '@material-ui/core/InputLabel'
-import Select from '@material-ui/core/Select'
 import MenuItem from '@material-ui/core/MenuItem'
-import FormControl from '@material-ui/core/FormControl'
 import { makeStyles } from '@material-ui/core/styles'
-import InputBase from '@material-ui/core/InputBase'
-import ColoredTextField from 'components/ColoredTextField/ColoredTextField'
-import ColoredSelectField from 'components/ColoredSelectField/ColoredSelectField'
-
-import styles from './postFromStyles'
+import StyledTextField from 'components/StyledTextField/StyledTextField'
+import StyledSelectField from 'components/StyledSelectField/StyledSelectField'
 import MarkdownEditor from 'components/MarkdownEditor/MarkdownEditor'
+import MarkdownDisplay from 'components/MarkdownDisplay/MarkdownDisplay'
+import MarkdownSwitch from './MarkdownSwitch'
+
+import styles from './postFormStyles'
 
 const useStyles = makeStyles(styles)
 
@@ -22,7 +19,7 @@ const PostForm = ({ handleSubmit }) => {
   // styles
   const classes = useStyles()
   const { category } = useParams()
-  const [state, setState] = useState({ title: '', content: '', category })
+  const [state, setState] = useState({ title: '', showPreview: false, content: '## Title\n### something', category })
   const [categories, setCategories] = useState([])
 
   useEffect(() => {
@@ -34,11 +31,12 @@ const PostForm = ({ handleSubmit }) => {
 
   }, [])
 
-  const handleChange = e => {
-    setState({
-      ...state,
-      [e.target.name]: e.target.value
-    })
+  const handleChange = e => setState({ ...state, [e.target.name]: e.target.value })
+  const handleSwitch = e => setState({ ...state, [e.target.name]: e.target.checked})
+
+  const isBtnDisabled = () => {
+    const { title, content, category } = state
+    return (title === '' || content === '' || category === '')
   }
 
   return (
@@ -50,7 +48,7 @@ const PostForm = ({ handleSubmit }) => {
     >
 
       {/* Title */}
-      <ColoredTextField
+      <StyledTextField
         className={classes.form_title}
         variant='outlined'
         name='title'
@@ -60,30 +58,39 @@ const PostForm = ({ handleSubmit }) => {
         onChange={handleChange}
       />
       {/* Category Select */}
-      <FormControl variant='outlined' className={classes.form_select_container}>
-        <InputLabel id='categoryLabel'>Category</InputLabel>
-        <Select
-          label='Category'
-          labelId='categoryLabel'
-          name='category'
-          value={state.category}
-          className={classes.form_select}
-          onChange={handleChange}
-        >
-          <MenuItem value={category}>{category}</MenuItem>
-          { categories.map((cat, index) => (
-            cat !== category && (
-              <MenuItem key={index} value={cat}>
-                {cat}
-              </MenuItem>
-            )
-          )) }
-        </Select>
-      </FormControl>
+      <StyledSelectField
+        value={state.category}
+        onChange={handleChange}
+        label='Category'
+        id='categoryLabel'
+      >
+        <MenuItem value={category}>{category}</MenuItem>
+        { categories.map((cat, index) => (
+          cat !== category && (
+            <MenuItem key={index} value={cat}>
+              {cat}
+            </MenuItem>
+          )
+        )) }
+      </StyledSelectField>
 
       {/* Content */}
-      <MarkdownEditor value={state.content} handleChange={handleChange} />
-      <Button color='primary' type='submit' variant='outlined' >Submit</Button>
+      <MarkdownSwitch showPreview={state.showPreview} onChange={handleSwitch} />
+      <div className={classes.content_container}>
+        { state.showPreview
+          ? <MarkdownDisplay data={state.content} />
+          : <MarkdownEditor value={state.content} handleChange={handleChange} />
+        }
+      </div>
+
+      <Button
+        className={classes.submit_button}
+        disabled={isBtnDisabled()}
+        type='submit'
+        variant='outlined'
+      >
+        Add Post
+      </Button>
     </form>
   )
 }

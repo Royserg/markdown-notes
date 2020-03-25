@@ -2,17 +2,24 @@ import { boxShadow, blackColor, whiteColor } from 'assets/jss/general'
 
 
 
-const postStyles = theme => ({
+const markdownDisplayStyles = theme => ({
+  container: {
+    boxSizing: 'border-box',
+    height: '100%',
+    width: '100%',
+  },
   markdown: {
+    margin: '0 auto',
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     fontSize: '16px',
     color: blackColor[1],
     fontFamily: 'Roboto, Helvetica, Arial, sans-serif',
-    width: '60%',
+    width: '90%',
+    padding: '10px 10px',
     [theme.breakpoints.down('md')]: {
-      width: '80%'
+      width: '90%'
     },
     '& code': {
       padding: '.1em',
@@ -55,6 +62,7 @@ const postStyles = theme => ({
       background: blackColor[1]
     },
     '& pre': {
+      alignSelf: 'center',
       fontFamily: 'source-code-pro, monospace, Courier New',
       width: '96%',
       marginLeft: '0.5em',
@@ -78,4 +86,4 @@ const postStyles = theme => ({
   }
 })
 
-export default postStyles
+export default markdownDisplayStyles

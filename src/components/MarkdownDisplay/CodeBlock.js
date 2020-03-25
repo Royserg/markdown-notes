@@ -4,7 +4,7 @@ import React from "react"
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter"
 import { hopscotch } from 'react-syntax-highlighter/dist/esm/styles/prism'
 
-/* Override that property, for enabling vertical scroll */
+/* Override that property, for enabling horizontal scroll */
 const codeTag = {
   whitespace: 'pre'
 }

@@ -2,8 +2,9 @@
 
 const pageStyles = theme => ({
   page: {
+    boxSizing: 'border-box',
     height: '100%',
-    padding: '2rem 2rem',
+    padding: '1rem 1rem',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',

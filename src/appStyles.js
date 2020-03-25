@@ -7,6 +7,7 @@ const appStyles = theme => ({
     flexDirection: 'row-reverse'
   },
   mainContent: {
+    height: '100%',
     width: `calc(100% - ${drawerWidth}px)`,
   }
 })

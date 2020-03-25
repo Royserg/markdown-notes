@@ -13,10 +13,6 @@ const CssTextField = withStyles({
       borderBottomColor: primaryColor[0],
     },
     '& .MuiOutlinedInput-root': {
-      // '& fieldset': {
-      //   borderWidth: 2,
-      //   borderColor: primaryColor[1],
-      // },
       '&:hover fieldset': {
         borderColor: primaryColor[0],
       },
@@ -27,10 +23,10 @@ const CssTextField = withStyles({
   },
 })(TextField);
 
-const ColoredTextField = props => {
+const StyledTextField = props => {
   return (
     <CssTextField {...props} />
   )
 }
 
-export default ColoredTextField
+export default StyledTextField

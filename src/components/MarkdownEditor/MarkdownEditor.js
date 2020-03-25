@@ -1,5 +1,5 @@
 import React from 'react'
-import ColoredTextField from 'components/ColoredTextField/ColoredTextField'
+import StyledTextField from 'components/StyledTextField/StyledTextField'
 import { makeStyles } from '@material-ui/core/styles'
 
 import styles from './markdownEditorStyles'
@@ -11,14 +11,15 @@ const MarkdownEditor = ({ handleChange, value }) => {
   const classes = useStyles()
 
   return (
-    <ColoredTextField
+    <StyledTextField
       className={classes.editor}
       name='content'
-      variant="filled"
-      label="Content"
+      variant='filled'
+      label='Content'
       multiline
-      rows="20"
-      placeholder="Content"
+      rowsMax={25}
+      rows={21}
+      placeholder='Content'
       onChange={handleChange}
       value={value}
     />
