@@ -1,7 +1,9 @@
+import fm from 'front-matter'
+/* == helper function == */
+import generateMdFileData from 'helpers/generateMdFileData'
 const fs = window.require('fs')
-const fm = require('front-matter')
 
-const MD_ROOT = `./markdown/`
+const MD_ROOT = './markdown/'
 
 const getPosts = category => {
   return new Promise((resolve, reject) => {
@@ -40,10 +42,8 @@ const getPost = (category, filename) => {
 
 const addPost = (data) => {
   return new Promise((resolve, reject) => {
-
-    const { filename, fileContent } = generateMdFileContent(data)
+    const { filename, fileContent } = generateMdFileData(data)
     const path = MD_ROOT + data.category + `/${filename}.md`
-
 
     fs.writeFile(path, fileContent, (error) => {
       if (error) {
@@ -54,23 +54,21 @@ const addPost = (data) => {
   })
 }
 
-
-const generateMdFileContent = ({title, category, content}) => {
-
-  const today = new Date()
-  const date = `${('0' + today.getDate()).substr(-2)}.${('0' + (today.getMonth() + 1)).substr(-2)}.${today.getFullYear()}`
-  const filename = title.replace(/\s+/g, '-').toLowerCase()
-
-  const fileContent = `---\ndate: "${date}"\ntitle: "${title}"\npath: "/${category}/${filename}"\n---\n${content}`
-
-  return {
-    filename,
-    fileContent
-  }
+const deletePost = (category, post) => {
+  return new Promise((resolve, reject) => {
+    const path = MD_ROOT + category + `/${post}.md`
+    fs.unlink(path, (error) => {
+      if (error) {
+        return reject(error)
+      }
+      return resolve({ msg: 'success' })
+    })
+  })
 }
 
 export {
   getPosts,
   getPost,
-  addPost
+  addPost,
+  deletePost
 }

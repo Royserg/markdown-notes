@@ -1,12 +1,13 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
+import Navbar from 'components/Navbar/Navbar'
 
 import styles from './pageStyles'
 
 const useStyles = makeStyles(styles)
 
-const Page = ({ pageTitle, children }) => {
+const Page = ({ pageTitle, navTitle, children }) => {
   // styles
   const classes = useStyles()
 
@@ -18,6 +19,7 @@ const Page = ({ pageTitle, children }) => {
 
   return (
     <div className={classes.page}>
+      <Navbar title={navTitle} />
       {title}
       {children}
     </div>

@@ -7,14 +7,12 @@ import AddPostButton from 'components/Buttons/AddPostButton/AddPostButton'
 
 import usePosts from 'hooks/usePosts'
 
-
 const Category = props => {
-
   const { category } = useParams()
   const { posts } = usePosts(category)
 
   return (
-    <Page pageTitle={category}>
+    <Page>
       <PostList items={posts} />
       <AddPostButton category={category} />
     </Page>

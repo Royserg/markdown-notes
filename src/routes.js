@@ -8,22 +8,22 @@ const routes = [
   {
     path: '/',
     name: 'Dashboard',
-    component: Dashboard,
+    component: Dashboard
   },
   {
     path: '/:category/add_post',
     name: 'Add Post',
-    component: AddPost,
+    component: AddPost
   },
   {
-    path: '/:category/:filename',
+    path: '/:category/:post',
     name: 'Post',
-    component: Post,
+    component: Post
   },
   {
     path: '/:category',
     name: 'Category',
-    component: Category,
+    component: Category
   }
 
 ]

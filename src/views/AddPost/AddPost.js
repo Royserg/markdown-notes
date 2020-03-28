@@ -5,9 +5,7 @@ import { addPost } from 'repositories/posts'
 
 import PostForm from 'components/Forms/PostForm/PostForm'
 
-
 const AddPost = props => {
-
   const { category } = useParams()
   const [redirect, setRedirect] = useState(false)
 
@@ -21,22 +19,20 @@ const AddPost = props => {
       content
     }
 
-    console.log('posting', postData)
-
     const result = await addPost(postData)
     if (result.msg === 'success') {
-        setRedirect(true)
+      setRedirect(true)
     }
   }
 
   return (
-      redirect
-      ?
-       <Redirect to={`/${category}`} />
-      :
-      <Page pageTitle='Add Post'>
-        <PostForm handleSubmit={handleSubmit} />
-      </Page>
+    redirect
+      ? <Redirect to={`/${category}`} />
+      : (
+        <Page pageTitle='Add Post'>
+          <PostForm handleSubmit={handleSubmit} />
+        </Page>
+      )
   )
 }
 

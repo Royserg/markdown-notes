@@ -8,7 +8,7 @@ const appStyles = theme => ({
   },
   mainContent: {
     height: '100%',
-    width: `calc(100% - ${drawerWidth}px)`,
+    width: `calc(100% - ${drawerWidth}px)`
   }
 })
 

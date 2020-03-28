@@ -1,7 +1,5 @@
 import { boxShadow, blackColor, whiteColor } from 'assets/jss/general'
 
-
-
 const markdownDisplayStyles = theme => ({
   container: {
     boxSizing: 'border-box',
@@ -82,7 +80,7 @@ const markdownDisplayStyles = theme => ({
         fontSize: '1em',
         paddingBottom: '0.5em',
       }
-    },
+    }
   }
 })
 

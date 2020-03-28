@@ -74,7 +74,7 @@ const sidebarStyles = theme => ({
     borderRadius: '3px',
     position: 'relative',
     display: 'block',
-    padding: '10px 15px',
+    padding: '4px 10px',
     backgroundColor: 'transparent',
     ...defaultFont,
     '&:hover': {

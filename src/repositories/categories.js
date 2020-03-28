@@ -1,6 +1,6 @@
 const fs = window.require('fs')
 
-const MD_ROOT = `./markdown/`
+const MD_ROOT = './markdown/'
 
 const getCategories = () => {
   return new Promise((resolve, reject) => {

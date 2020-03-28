@@ -15,7 +15,6 @@ const useStyles = makeStyles(sidebarStyles)
 const Sidebar = ({ brandText, routes }) => {
   // styles
   const classes = useStyles()
-  // TODO: doesn't want to find category
   const location = useLocation()
 
   const [categories, setCategories] = useState([])
@@ -38,8 +37,8 @@ const Sidebar = ({ brandText, routes }) => {
         const url = `/${category}`
         const listItemClass = classNames(
           classes.itemLink, {
-          [classes.purple]: isActiveCategory(url)
-        }
+            [classes.purple]: isActiveCategory(url)
+          }
         )
 
         return (

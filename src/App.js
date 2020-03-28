@@ -8,7 +8,7 @@ import {
 import { makeStyles } from '@material-ui/core/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
 /* Components */
-import Sidebar from './components/Sidebar/Sidebar'
+import Sidebar from 'components/Sidebar/Sidebar'
 /* Routes file */
 import routes from './routes'
 /* Styles */

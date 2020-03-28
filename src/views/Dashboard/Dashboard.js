@@ -6,7 +6,7 @@ import Typography from '@material-ui/core/Typography'
 const Dashboard = props => {
 
   return (
-    <Page pageTitle='Home'>
+    <Page navTitle='Home'>
       <Typography variant='h5' gutterBottom>
         Application for documenting what I've learnt during 4th semester of Computer Science.
       </Typography>
