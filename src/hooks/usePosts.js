@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react'
 import { getPosts } from 'repositories/posts'
 
 const usePosts = (category) => {
-
   const [posts, setPosts] = useState([])
 
   useEffect(() => {

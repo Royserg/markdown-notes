@@ -12,7 +12,7 @@ const Category = props => {
   const { posts } = usePosts(category)
 
   return (
-    <Page>
+    <Page pageTitle={category}>
       <PostList items={posts} />
       <AddPostButton category={category} />
     </Page>
