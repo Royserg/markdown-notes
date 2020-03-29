@@ -33,7 +33,6 @@ const MenuDropdown = props => {
   }
 
   async function handleDelete () {
-    console.log('===handle Delete Triggerreedd ===')
     let result = null
     if (post) {
       // Remove post
@@ -47,6 +46,23 @@ const MenuDropdown = props => {
 
   // Display text for the button
   const entity = post ? 'Post' : 'Category'
+  const menuButtons = (
+    <div>
+      <MenuItem onClick={handleClose}>
+        <ListItemIcon>
+          <EditIcon color='primary' fontSize='small' />
+        </ListItemIcon>
+        <ListItemText primary={`Edit ${entity}`} />
+      </MenuItem>
+
+      <MenuItem onClick={handleDeleteClick}>
+        <ListItemIcon>
+          <DeleteIcon color='secondary' fontSize='small' />
+        </ListItemIcon>
+        <ListItemText primary={`Delete ${entity}`} />
+      </MenuItem>
+    </div>
+  )
 
   return (
     <div>
@@ -67,21 +83,9 @@ const MenuDropdown = props => {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        {/* Edit button */}
-        <MenuItem onClick={handleClose}>
-          <ListItemIcon>
-            <EditIcon color='primary' fontSize='small' />
-          </ListItemIcon>
-          <ListItemText primary={`Edit ${entity}`} />
-        </MenuItem>
 
-        {/* Delete button */}
-        <MenuItem onClick={handleDeleteClick}>
-          <ListItemIcon>
-            <DeleteIcon color='secondary' fontSize='small' />
-          </ListItemIcon>
-          <ListItemText primary={`Delete ${entity}`} />
-        </MenuItem>
+        {/* Show buttons only if in category or a post */}
+        {category && menuButtons}
 
         <Divider />
         {/* Settings button */}
