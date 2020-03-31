@@ -28,7 +28,6 @@ const PostForm = ({ handleSubmit }) => {
       setCategories(categories)
     }
     fetchData()
-
   }, [])
 
   const handleChange = e => setState({ ...state, [e.target.name]: e.target.value })
@@ -43,7 +42,7 @@ const PostForm = ({ handleSubmit }) => {
     <form
       onSubmit={e => handleSubmit(e, state)}
       noValidate
-      autoComplete="off"
+      autoComplete='off'
       className={classes.form}
     >
 
@@ -52,8 +51,8 @@ const PostForm = ({ handleSubmit }) => {
         className={classes.form_title}
         variant='outlined'
         name='title'
-        label="Title"
-        placeholder="Title"
+        label='Title'
+        placeholder='Title'
         value={state.title}
         onChange={handleChange}
       />
@@ -65,22 +64,21 @@ const PostForm = ({ handleSubmit }) => {
         id='categoryLabel'
       >
         <MenuItem value={category}>{category}</MenuItem>
-        { categories.map((cat, index) => (
+        {categories.map((cat, index) => (
           cat !== category && (
             <MenuItem key={index} value={cat}>
               {cat}
             </MenuItem>
           )
-        )) }
+        ))}
       </StyledSelectField>
 
       {/* Content */}
       <MarkdownSwitch showPreview={state.showPreview} onChange={handleSwitch} />
       <div className={classes.content_container}>
-        { state.showPreview
+        {state.showPreview
           ? <MarkdownDisplay data={state.content} />
-          : <MarkdownEditor value={state.content} handleChange={handleChange} />
-        }
+          : <MarkdownEditor value={state.content} handleChange={handleChange} />}
       </div>
 
       <Button

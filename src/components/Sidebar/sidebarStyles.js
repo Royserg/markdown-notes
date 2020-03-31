@@ -21,6 +21,11 @@ const sidebarStyles = theme => ({
     ...boxShadow,
     width: drawerWidth
   },
+  nav: {
+    height: '100%',
+    display: 'flex',
+    flexDirection: 'column'
+  },
   brand: {
     position: 'relative',
     padding: '15px 15px',
@@ -103,6 +108,27 @@ const sidebarStyles = theme => ({
                   0 4px 20px 0 ${hexToRGBA(blackColor[0], 0.12)},
                   0 7px 8px -5px ${hexToRGBA(primaryColor[0], 0.2)}
                 `
+    }
+  },
+  addCategoryBtn: {
+    borderRadius: 0,
+    padding: '10px 0px',
+
+    background: '#333',
+    marginTop: 'auto',
+    color: whiteColor,
+    borderTop: `1px solid ${hexToRGBA(blackColor[2], 0.6)}`,
+    '&:hover': {
+      background: primaryColor[1]
+    }
+  },
+  newCategoryField: {
+    margin: '10px 15px 0',
+    borderRadius: '3px',
+    padding: '4px 10px',
+    backgroundColor: primaryColor[1],
+    '& input': {
+      // color: whiteColor,
     }
   }
 })

@@ -7,21 +7,21 @@ import { primaryColor } from 'assets/jss/general'
 const CssTextField = withStyles({
   root: {
     '& label.Mui-focused': {
-      color: primaryColor[0],
+      color: primaryColor[0]
     },
     '& .MuiInput-underline:after': {
-      borderBottomColor: primaryColor[0],
+      borderBottomColor: primaryColor[0]
     },
     '& .MuiOutlinedInput-root': {
       '&:hover fieldset': {
-        borderColor: primaryColor[0],
+        borderColor: primaryColor[0]
       },
       '&.Mui-focused fieldset': {
-        borderColor: primaryColor[0],
-      },
-    },
-  },
-})(TextField);
+        borderColor: primaryColor[0]
+      }
+    }
+  }
+})(TextField)
 
 const StyledTextField = props => {
   return (

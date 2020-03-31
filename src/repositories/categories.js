@@ -4,7 +4,7 @@ const MD_ROOT = './markdown/'
 
 const getCategories = () => {
   return new Promise((resolve, reject) => {
-    fs.readdir(MD_ROOT, async (error, files) => {
+    fs.readdir(MD_ROOT, (error, files) => {
       if (error) {
         return reject(error)
       }
@@ -13,6 +13,18 @@ const getCategories = () => {
   })
 }
 
+const addCategory = (category) => {
+  return new Promise((resolve, reject) => {
+    fs.mkdir(MD_ROOT + category, (error) => {
+      if (error) {
+        return reject(error)
+      }
+      return resolve('success')
+    })
+  })
+}
+
 export {
-  getCategories
+  getCategories,
+  addCategory
 }
