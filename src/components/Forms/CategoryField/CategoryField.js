@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import Input from '@material-ui/core/Input'
 import IconButton from '@material-ui/core/IconButton'
 import SaveIcon from '@material-ui/icons/Save'
-
+import ClickAwayListener from '@material-ui/core/ClickAwayListener'
 import InputAdornment from '@material-ui/core/InputAdornment'
 import { withStyles } from '@material-ui/core/styles'
 import { primaryColor } from 'assets/jss/general'
@@ -12,6 +12,7 @@ import { primaryColor } from 'assets/jss/general'
 const StyledInput = withStyles({
   root: {
     background: primaryColor[1],
+    borderRadius: '3px',
     margin: '10px 10px',
     padding: '3px 10px',
     // color: whiteColor,
@@ -23,30 +24,32 @@ const StyledInput = withStyles({
   }
 })(Input)
 
-const CategoryField = ({ handleSubmit }) => {
-  const [category, setCategory] = useState('')
+const CategoryField = ({ handleSubmit, initialValue = '', onClickAway }) => {
+  const [category, setCategory] = useState(initialValue)
 
   return (
-    <form onSubmit={(e) => handleSubmit(e, category)}>
-      <StyledInput
-        autoFocus
-        disableUnderline
-        placeholder='Untitled'
-        value={category}
-        onChange={(e) => setCategory(e.target.value)}
-        endAdornment={
-          <InputAdornment position='end'>
-            <IconButton
-              type='submit'
-              aria-label='Submit new category'
-              edge='end'
-            >
-              <SaveIcon />
-            </IconButton>
-          </InputAdornment>
-        }
-      />
-    </form>
+    <ClickAwayListener onClickAway={onClickAway}>
+      <form onSubmit={(e) => handleSubmit(e, category)}>
+        <StyledInput
+          autoFocus
+          disableUnderline
+          placeholder='Untitled'
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+          endAdornment={
+            <InputAdornment position='end'>
+              <IconButton
+                type='submit'
+                aria-label='Submit new category'
+                edge='end'
+              >
+                <SaveIcon />
+              </IconButton>
+            </InputAdornment>
+          }
+        />
+      </form>
+    </ClickAwayListener>
   )
 }
 

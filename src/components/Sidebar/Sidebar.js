@@ -1,16 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import classNames from 'classnames'
-import { Link, NavLink, useLocation } from 'react-router-dom'
-import { getCategories, addCategory } from 'repositories/categories'
-
+import { Link, useLocation } from 'react-router-dom'
+import { getCategories, addCategory, renameCategory } from 'repositories/categories'
 import { makeStyles } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
 import AddIcon from '@material-ui/icons/Add'
 import List from '@material-ui/core/List'
-import ListItem from '@material-ui/core/ListItem'
-import ListItemText from '@material-ui/core/ListItemText'
-
-import ClickAwayListener from '@material-ui/core/ClickAwayListener'
+import SidebarLink from './SidebarLink/SidebarLink'
 import CategoryField from 'components/Forms/CategoryField/CategoryField'
 
 import sidebarStyles from './sidebarStyles'
@@ -23,7 +19,6 @@ const Sidebar = ({ brandText, routes }) => {
   const location = useLocation()
 
   const [showCategoryField, setShowCategoryField] = useState(false)
-
   const [categories, setCategories] = useState([])
 
   useEffect(() => {
@@ -40,9 +35,16 @@ const Sidebar = ({ brandText, routes }) => {
     addCategory(newCategory)
     // Add category to the front-end list
     setCategories(categories.concat(newCategory))
-
     // Close category field
     setShowCategoryField(false)
+  }
+
+  const handleRenameCategory = (prevName, newName) => {
+    // Change directory name
+    renameCategory(prevName, newName)
+    // Update categories state
+    const updatedCategories = categories.map(cat => cat === prevName ? newName : cat)
+    setCategories(updatedCategories)
   }
 
   const handleClickAway = () => {
@@ -64,13 +66,12 @@ const Sidebar = ({ brandText, routes }) => {
         )
 
         return (
-          <NavLink key={index} to={`/${category}`} className={classes.item}>
-            <ListItem button className={listItemClass}>
-              <ListItemText disableTypography className={classes.itemText}>
-                {category}
-              </ListItemText>
-            </ListItem>
-          </NavLink>
+          <SidebarLink
+            key={index}
+            category={category}
+            listItemClass={listItemClass}
+            onRenameCategory={handleRenameCategory}
+          />
         )
       })}
     </List>
@@ -95,11 +96,7 @@ const Sidebar = ({ brandText, routes }) => {
   )
 
   const categoryField = (
-    <ClickAwayListener onClickAway={handleClickAway}>
-      <div>
-        <CategoryField handleSubmit={handleAddCategory} />
-      </div>
-    </ClickAwayListener>
+    <CategoryField handleSubmit={handleAddCategory} onClickAway={handleClickAway} />
   )
 
   return (
