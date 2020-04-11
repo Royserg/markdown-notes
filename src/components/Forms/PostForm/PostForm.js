@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { getCategories } from 'repositories/categories'
+
+// Redux
+import { useSelector } from 'react-redux'
 // UI elements
 import Button from '@material-ui/core/Button'
 import MenuItem from '@material-ui/core/MenuItem'
@@ -20,15 +22,7 @@ const PostForm = ({ handleSubmit }) => {
   const classes = useStyles()
   const { category } = useParams()
   const [state, setState] = useState({ title: '', showPreview: false, content: '## Title\n### something', category })
-  const [categories, setCategories] = useState([])
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const categories = await getCategories()
-      setCategories(categories)
-    }
-    fetchData()
-  }, [])
+  const categories = useSelector(({ categories }) => categories )
 
   const handleChange = e => setState({ ...state, [e.target.name]: e.target.value })
   const handleSwitch = e => setState({ ...state, [e.target.name]: e.target.checked})
