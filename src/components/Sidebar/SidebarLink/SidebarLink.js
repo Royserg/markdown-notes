@@ -6,6 +6,9 @@ import ListItemText from '@material-ui/core/ListItemText'
 import CategoryField from 'components/Forms/CategoryField/CategoryField'
 import { makeStyles } from '@material-ui/core/styles'
 
+import { renameCategory } from 'store/actions/categories'
+import { useDispatch } from 'react-redux'
+
 import styles from './sidebarLinkStyles'
 
 const useStyles = makeStyles(styles)
@@ -13,12 +16,15 @@ const useStyles = makeStyles(styles)
 const SidebarLink = ({ category, listItemClass, onRenameCategory }) => {
   // styles
   const classes = useStyles()
+  const dispatch = useDispatch()
+
   const [isEditing, setIsEditing] = useState(false)
 
-  const handleRename = (e, updatedCategory) => {
+  const handleRename = (e, newName) => {
     e.preventDefault()
-    onRenameCategory(category, updatedCategory)
-    setIsEditing(false)
+    // Change directory name
+    dispatch(renameCategory(category, newName))
+      .then(_ => setIsEditing(false))
   }
 
   const handleDelete = () => {

@@ -1,38 +1,34 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import { getPost } from 'repositories/posts'
+
+// Redux
+import { useSelector, useDispatch } from 'react-redux'
+import { loadPost } from 'store/actions/posts'
+
+// Components
 import Page from 'components/Page/Page'
 import MarkdownDisplay from 'components/MarkdownDisplay/MarkdownDisplay'
 import Navbar from 'components/Navbar/Navbar'
 
-const Post = props => {
+const Post = (props) => {
   const { category, post } = useParams()
-  const [postData, setPostData] = useState({})
+  const dispatch = useDispatch()
+  const postData = useSelector(({ posts }) => posts.get('currentPost'))
 
   useEffect(() => {
-    const fetchPost = async () => {
-      const data = await getPost(category, `${post}.md`)
-      setPostData(data)
-    }
-    fetchPost()
-  }, [category, post])
+    dispatch(loadPost(category, post))
+  }, [dispatch, category, post])
 
-  const postPage = postData.attributes
-    ? (
-      <Page>
-        <Navbar title={postData.attributes.title} />
-        <MarkdownDisplay data={postData.body} />
-      </Page>
-    )
-    : (
-      <Page pageTitle='Loading..' />
-    )
-
-  return (
-    <>
-      {postPage}
-    </>
+  const postPage = postData.get('loading') ? (
+    <Page pageTitle="Loading.." />
+  ) : (
+    <Page>
+      <Navbar title={postData.getIn(['attributes', 'title'])} />
+      <MarkdownDisplay data={postData.get('content')} />
+    </Page>
   )
+
+  return <>{postPage}</>
 }
 
 export default Post

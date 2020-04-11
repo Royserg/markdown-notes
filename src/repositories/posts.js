@@ -22,7 +22,7 @@ const getPosts = category => {
           reject(error)
         }
       }
-      resolve(files.map(file => file.attributes))
+      resolve(files)
     })
   })
 }
@@ -34,8 +34,12 @@ const getPost = (category, filename) => {
       if (error) {
         reject(error)
       }
-      const content = fm(data)
-      resolve(content)
+      const markdownFileData = {
+        filename,
+        content: fm(data)
+      }
+
+      resolve(markdownFileData)
     })
   })
 }

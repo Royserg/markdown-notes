@@ -19,18 +19,18 @@ const addCategory = (category) => {
       if (error) {
         return reject(error)
       }
-      return resolve('success')
+      return resolve(category)
     })
   })
 }
 
-const renameCategory = (target, newName) => {
+const updateCategory = (target, newName) => {
   return new Promise((resolve, reject) => {
     fs.rename(MD_ROOT + target, MD_ROOT + newName, (error) => {
       if (error) {
         return reject(error)
       }
-      return resolve('success')
+      return resolve(newName)
     })
   })
 }
@@ -38,5 +38,5 @@ const renameCategory = (target, newName) => {
 export {
   getCategories,
   addCategory,
-  renameCategory
+  updateCategory
 }

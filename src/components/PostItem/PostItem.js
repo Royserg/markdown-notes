@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import classNames from 'classnames'
 
 import { makeStyles } from '@material-ui/core/styles'
@@ -16,6 +16,8 @@ const useStyles = makeStyles(styles)
 const PostItem = ({ item, reversed }) => {
   // styles
   const classes = useStyles()
+  const { filename, content } = item
+  const { category } = useParams()
 
   const contentStyles = classNames(
     classes.content, {
@@ -26,12 +28,12 @@ const PostItem = ({ item, reversed }) => {
   return (
     <Card className={classes.card}>
       <CardHeader reversed={reversed} >
-        {item.date}
+        {content.attributes.date}
       </CardHeader>
-      <Link to={item.path} className={classes.link}>
+      <Link to={`${category}/${filename}`} className={classes.link}>
         <CardContent className={contentStyles}>
           <Typography  variant='h5' component='h2'>
-            {item.title}
+            {content.attributes.title}
           </Typography>
         </CardContent>
       </Link>

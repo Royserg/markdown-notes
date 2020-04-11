@@ -24,7 +24,6 @@ const ContextMenu = ({ children, category, onRenamePress, onDeletePress }) => {
   }
 
   const handleRename = () => {
-    console.log(category, 'to rename')
     onRenamePress()
     handleClose()
   }
