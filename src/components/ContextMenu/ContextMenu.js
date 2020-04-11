@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
 
@@ -8,7 +8,7 @@ const initialState = {
 }
 
 const ContextMenu = ({ children, category, onRenamePress, onDeletePress }) => {
-  const [state, setState] = React.useState(initialState)
+  const [state, setState] = useState(initialState)
 
   const handleClick = (event) => {
     event.preventDefault()
