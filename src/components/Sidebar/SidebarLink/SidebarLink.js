@@ -6,7 +6,8 @@ import ListItemText from '@material-ui/core/ListItemText'
 import CategoryField from 'components/Forms/CategoryField/CategoryField'
 import { makeStyles } from '@material-ui/core/styles'
 
-import { renameCategory } from 'store/actions/categories'
+// Redux
+import { renameCategory, deleteCategory } from 'store/actions/categories'
 import { useDispatch } from 'react-redux'
 
 import styles from './sidebarLinkStyles'
@@ -23,38 +24,25 @@ const SidebarLink = ({ category, listItemClass, onRenameCategory }) => {
   const handleRename = (e, newName) => {
     e.preventDefault()
     // Change directory name
-    dispatch(renameCategory(category, newName))
-      .then(_ => setIsEditing(false))
+    dispatch(renameCategory(category, newName)).then((_) => setIsEditing(false))
   }
 
   const handleDelete = () => {
-    console.log('deleting', category)
+    dispatch(deleteCategory(category))
   }
 
-  return (
-    isEditing
-      ? (
-        <CategoryField
-          handleSubmit={handleRename}
-          initialValue={category}
-          onClickAway={() => setIsEditing(false)}
-        />
-      )
-      : (
-        <ContextMenu
-          category={category}
-          onRenamePress={() => setIsEditing(true)}
-          onDeletePress={handleDelete}
-        >
-          <NavLink to={`/${category}`} className={classes.item}>
-            <ListItem button className={listItemClass}>
-              <ListItemText disableTypography className={classes.itemText}>
-                {category}
-              </ListItemText>
-            </ListItem>
-          </NavLink>
-        </ContextMenu>
-      )
+  return isEditing ? (
+    <CategoryField handleSubmit={handleRename} initialValue={category} onClickAway={() => setIsEditing(false)} />
+  ) : (
+    <ContextMenu category={category} onRenamePress={() => setIsEditing(true)} onDeletePress={handleDelete}>
+      <NavLink to={`/${category}`} className={classes.item}>
+        <ListItem button className={listItemClass}>
+          <ListItemText disableTypography className={classes.itemText}>
+            {category}
+          </ListItemText>
+        </ListItem>
+      </NavLink>
+    </ContextMenu>
   )
 }
 

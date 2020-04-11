@@ -13,6 +13,9 @@ const categoryReducer = (state = initialState, action) => {
       return state.set(state.indexOf(prevName), renamedCategory)
     }
 
+    case categoryTypes.DELETE_CATEGORY:
+      return state.delete(state.indexOf(action.payload))
+
     case categoryTypes.LOAD_CATEGORIES:
       return List(action.payload)
 

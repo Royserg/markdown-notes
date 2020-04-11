@@ -35,8 +35,20 @@ const updateCategory = (target, newName) => {
   })
 }
 
-export {
+const deleteCategory = (categoryName) => {
+  return new Promise((resolve, reject) => {
+    fs.rmdir(MD_ROOT + categoryName, { recursive: true }, (error) => {
+      if (error) {
+        return reject(error)
+      }
+      return resolve('success')
+    })
+  })
+}
+
+export default {
   getCategories,
   addCategory,
-  updateCategory
+  updateCategory,
+  deleteCategory,
 }
