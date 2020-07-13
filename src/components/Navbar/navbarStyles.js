@@ -14,7 +14,7 @@ const navbarStyles = theme => ({
     minHeight: navbarHeight
   },
   title: {
-    flexGrow: 1
+    flexGrow: 1,
   }
 })
 

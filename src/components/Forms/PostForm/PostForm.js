@@ -21,7 +21,7 @@ const PostForm = ({ handleSubmit }) => {
   // styles
   const classes = useStyles()
   const { category } = useParams()
-  const [state, setState] = useState({ title: '', showPreview: false, content: '## Title\n### something', category })
+  const [state, setState] = useState({ title: '', showPreview: false, content: '## Post Heading', category })
   const categories = useSelector(({ categories }) => categories )
 
   const handleChange = e => setState({ ...state, [e.target.name]: e.target.value })

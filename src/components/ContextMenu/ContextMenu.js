@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
+import useDialog from '../../hooks/useDialog'
 
 const initialState = {
   mouseX: null,
@@ -9,6 +10,7 @@ const initialState = {
 
 const ContextMenu = ({ children, category, onRenamePress, onDeletePress }) => {
   const [state, setState] = useState(initialState)
+  const { ConfirmDialog, confirm } = useDialog(handleDelete)
 
   const handleClick = (event) => {
     event.preventDefault()
@@ -18,7 +20,12 @@ const ContextMenu = ({ children, category, onRenamePress, onDeletePress }) => {
     })
   }
 
-  const handleDelete = () => {
+  const handleDeleteClick = () => {
+    // Call dialog confirmation
+    confirm(`You want to delete category: ${category}`)
+  }
+
+  function handleDelete () {
     onDeletePress()
     handleClose()
   }
@@ -47,8 +54,10 @@ const ContextMenu = ({ children, category, onRenamePress, onDeletePress }) => {
         }
       >
         <MenuItem onClick={handleRename}>Rename</MenuItem>
-        <MenuItem onClick={handleDelete}>Delete</MenuItem>
+        <MenuItem onClick={handleDeleteClick}>Delete</MenuItem>
       </Menu>
+
+      <ConfirmDialog />
     </div>
   )
 }

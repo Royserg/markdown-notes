@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useHistory } from 'react-router-dom'
 import ContextMenu from 'components/ContextMenu/ContextMenu'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
@@ -19,6 +19,7 @@ const SidebarLink = ({ category, listItemClass, onRenameCategory }) => {
   const classes = useStyles()
   const dispatch = useDispatch()
 
+  const history = useHistory()
   const [isEditing, setIsEditing] = useState(false)
 
   const handleRename = (e, newName) => {
@@ -29,6 +30,11 @@ const SidebarLink = ({ category, listItemClass, onRenameCategory }) => {
 
   const handleDelete = () => {
     dispatch(deleteCategory(category))
+    /* If viewing deleted category, redirect to home page */
+    const urlArray = history.location.pathname.split('/')
+    if (urlArray.includes(category)) {
+      history.replace('/')
+    }
   }
 
   return isEditing ? (
