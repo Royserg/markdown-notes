@@ -3,6 +3,10 @@ import { useParams, useHistory } from 'react-router-dom'
 import { deletePost } from 'repositories/posts'
 import useDialog from 'hooks/useDialog'
 
+// Redux
+import { useDispatch } from 'react-redux'
+
+// Components
 import IconButton from '@material-ui/core/IconButton'
 import Menu from '@material-ui/core/Menu'
 import Divider from '@material-ui/core/Divider'
@@ -10,6 +14,7 @@ import MenuItem from '@material-ui/core/MenuItem'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
 
+// Icons
 import MenuIcon from '@material-ui/icons/Menu'
 import SettingsIcon from '@material-ui/icons/Settings'
 import DeleteIcon from '@material-ui/icons/Delete'
