@@ -3,15 +3,15 @@ import { useParams, useHistory } from 'react-router-dom'
 import { deletePost } from 'repositories/posts'
 import useDialog from 'hooks/useDialog'
 
+// Components
 import IconButton from '@material-ui/core/IconButton'
 import Menu from '@material-ui/core/Menu'
-import Divider from '@material-ui/core/Divider'
 import MenuItem from '@material-ui/core/MenuItem'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
 
+// Icons
 import MenuIcon from '@material-ui/icons/Menu'
-import SettingsIcon from '@material-ui/icons/Settings'
 import DeleteIcon from '@material-ui/icons/Delete'
 import EditIcon from '@material-ui/icons/Edit'
 
@@ -24,6 +24,12 @@ const MenuDropdown = props => {
 
   const handleOpen = event => setAnchorEl(event.currentTarget)
   const handleClose = () => setAnchorEl(null)
+  const handleEditClick = () => {
+    // Close dropdown
+    setAnchorEl(null)
+    // Open edit view
+    history.push(`/${category}/${post}/edit`)
+  }
 
   const handleDeleteClick = () => {
     // Close dropdown
@@ -37,18 +43,16 @@ const MenuDropdown = props => {
     if (post) {
       // Remove post
       result = await deletePost(category, post)
-    } else {
-      // TODO: Remove category
     }
 
     if (result) history.goBack()
   }
 
   // Display text for the button
-  const entity = post ? 'Post' : 'Category'
+  const entity = 'Post'
   const menuButtons = (
     <div>
-      <MenuItem onClick={handleClose}>
+      <MenuItem onClick={handleEditClick}>
         <ListItemIcon>
           <EditIcon color='primary' fontSize='small' />
         </ListItemIcon>
@@ -66,38 +70,34 @@ const MenuDropdown = props => {
 
   return (
     <div>
-      <IconButton
-        aria-label='menu'
-        aria-controls='menu-appbar'
-        aria-haspopup='true'
-        onClick={handleOpen}
-        color='inherit'
-      >
-        <MenuIcon />
-      </IconButton>
-      <Menu
-        id='menu-appbar'
-        anchorEl={anchorEl}
-        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-        keepMounted
-        open={Boolean(anchorEl)}
-        onClose={handleClose}
-      >
+      {/* Show buttons when viewing a post */}
+      {post &&
+        <>
+          <IconButton
+          aria-label='menu'
+          aria-controls='menu-appbar'
+          aria-haspopup='true'
+          onClick={handleOpen}
+          color='inherit'
+          style={{ display: 'hidden' }}
+          >
+            <MenuIcon />
+          </IconButton>
+          <Menu
+            id='menu-appbar'
+            anchorEl={anchorEl}
+            anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+            keepMounted
+            open={Boolean(anchorEl)}
+            onClose={handleClose}
+          >
+            {menuButtons}
+          </Menu>
 
-        {/* Show buttons only if in category or a post */}
-        {category && menuButtons}
+          <ConfirmDialog />
+        </>
+      }
 
-        <Divider />
-        {/* Settings button */}
-        <MenuItem onClick={handleClose}>
-          <ListItemIcon>
-            <SettingsIcon fontSize='small' />
-          </ListItemIcon>
-          <ListItemText primary='Settings' />
-        </MenuItem>
-      </Menu>
-
-      <ConfirmDialog />
     </div>
   )
 }

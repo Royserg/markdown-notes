@@ -16,7 +16,7 @@ import styles from './appStyles'
 
 const useStyles = makeStyles(styles)
 
-function App () {
+function App() {
   // styles
   const classes = useStyles()
 
@@ -34,7 +34,7 @@ function App () {
     <Router>
       <CssBaseline />
       <div className={classes.wrapper}>
-        <Sidebar brandText='DevthNote' routes={routes} />
+        <Sidebar brandText='MarkdownNotes' routes={routes} />
         <div className={classes.mainContent}>
           {switchRoutes}
         </div>

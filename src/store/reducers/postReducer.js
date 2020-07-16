@@ -20,14 +20,19 @@ const postReducer = (state = initialState, action) => {
     case postTypes.POST_IS_LOADING:
       return state.setIn(['currentPost', 'loading'], action.payload)
 
+    /* It is not necessary as creating redirects to the list of posts
+        Where posts are loaded for viewed category
+        // return state.updateIn(['posts'], (posts) => posts.push(action.payload)}
+    */
     case postTypes.CREATE_POST:
-      // TODO:
-      return [...state, action.category]
+      return state
 
+    /* Not necessary as after update, should redirect to the Post Details
+      Where post is loaded. Avoiding removing from category and adding to another
+      if category changes
+    */
     case postTypes.UPDATE_POST: {
-      // TODO:
-      const { prevName, newName } = action.data
-      return state.map((cat) => (cat === prevName ? newName : cat))
+      return state
     }
 
     default:

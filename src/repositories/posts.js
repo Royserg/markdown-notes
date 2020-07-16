@@ -60,7 +60,7 @@ const addPost = (data) => {
 
 const deletePost = (category, post) => {
   return new Promise((resolve, reject) => {
-    const path = MD_ROOT + category + `/${post}.md`
+    const path = MD_ROOT + category + `/${post}`
     fs.unlink(path, (error) => {
       if (error) {
         return reject(error)
