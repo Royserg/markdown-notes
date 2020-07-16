@@ -1,13 +1,18 @@
 import React, { useState } from 'react'
-import Page from 'components/Page/Page'
 import { Redirect, useParams } from 'react-router-dom'
-import { addPost } from 'repositories/posts'
 
+/* Redux */
+import { useDispatch } from 'react-redux'
+import { createPost } from 'store/actions/posts'
+
+/* Components */
 import PostForm from 'components/Forms/PostForm/PostForm'
+import Page from 'components/Page/Page'
 
 const AddPost = props => {
   const { category } = useParams()
   const [redirect, setRedirect] = useState(false)
+  const dispatch = useDispatch()
 
   const handleSubmit = async (e, data) => {
     e.preventDefault()
@@ -19,10 +24,13 @@ const AddPost = props => {
       content
     }
 
-    const result = await addPost(postData)
-    if (result.msg === 'success') {
-      setRedirect(true)
-    }
+    dispatch(createPost(postData))
+    setRedirect(true)
+
+    // const result = await addPost(postData)
+    // if (result.msg === 'success') {
+    //   setRedirect(true)
+    // }
   }
 
   return (
@@ -30,7 +38,7 @@ const AddPost = props => {
       ? <Redirect to={`/${category}`} />
       : (
         <Page pageTitle='Add Post'>
-          <PostForm handleSubmit={handleSubmit} />
+          <PostForm onSubmit={handleSubmit} />
         </Page>
       )
   )

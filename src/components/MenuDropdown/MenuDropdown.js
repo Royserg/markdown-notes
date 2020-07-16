@@ -24,6 +24,12 @@ const MenuDropdown = props => {
 
   const handleOpen = event => setAnchorEl(event.currentTarget)
   const handleClose = () => setAnchorEl(null)
+  const handleEditClick = () => {
+    // Close dropdown
+    setAnchorEl(null)
+    // Open edit view
+    history.push(`/${category}/${post}/edit`)
+  }
 
   const handleDeleteClick = () => {
     // Close dropdown
@@ -46,7 +52,7 @@ const MenuDropdown = props => {
   const entity = 'Post'
   const menuButtons = (
     <div>
-      <MenuItem onClick={handleClose}>
+      <MenuItem onClick={handleEditClick}>
         <ListItemIcon>
           <EditIcon color='primary' fontSize='small' />
         </ListItemIcon>

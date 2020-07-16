@@ -1,5 +1,6 @@
 import { postTypes } from '../constants/postConstants'
-import { getPosts, getPost } from 'repositories/posts'
+import { getPosts, getPost, addPost } from 'repositories/posts'
+import { deletePost } from 'repositories/posts'
 
 export const loadPostsForCategory = (category) => {
   return async (dispatch) => {
@@ -36,22 +37,27 @@ export const loadPost = (category, filename) => {
   }
 }
 
-export const createPost = (title, content) => {
-  return {
-    type: postTypes.CREATE_POST,
-    data: {
-      title,
-      content,
-    },
+export const createPost = (data) => {
+  return async (dispatch) => {
+    try {
+      await addPost(data)
+
+    } catch (error) {
+      console.log(error)
+    }
   }
 }
 
-export const editPost = (title, content) => {
-  return {
-    type: postTypes.UPDATE_POST,
-    data: {
-      title,
-      content,
-    },
+export const editPost = (data) => {
+  return async (dispatch) => {
+    const { oldPost, newPost } = data
+    // Create a new file in the proper place
+    await addPost({
+      category: newPost.category,
+      title: newPost.title,
+      content: newPost.content,
+    })
+    // Remove target file
+    await deletePost(oldPost.category, oldPost.filename)
   }
 }

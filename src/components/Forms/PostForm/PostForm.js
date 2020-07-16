@@ -17,11 +17,26 @@ import styles from './postFormStyles'
 
 const useStyles = makeStyles(styles)
 
-const PostForm = ({ handleSubmit }) => {
+const initialState = {
+  title: '',
+  showPreview: false,
+  content: '## Post Heading',
+  category: '',
+}
+
+const PostForm = ({ onSubmit, postData }) => {
   // styles
   const classes = useStyles()
   const { category } = useParams()
-  const [state, setState] = useState({ title: '', showPreview: false, content: '## Post Heading', category })
+
+  const formState = postData
+    ? { ...initialState,
+        title: postData.get('attributes').title,
+        content: postData.get('content')
+      }
+    : { ...initialState }
+
+  const [state, setState] = useState({ ...formState, category })
   const categories = useSelector(({ categories }) => categories )
 
   const handleChange = e => setState({ ...state, [e.target.name]: e.target.value })
@@ -34,7 +49,7 @@ const PostForm = ({ handleSubmit }) => {
 
   return (
     <form
-      onSubmit={e => handleSubmit(e, state)}
+      onSubmit={e => onSubmit(e, state)}
       noValidate
       autoComplete='off'
       className={classes.form}
@@ -81,7 +96,7 @@ const PostForm = ({ handleSubmit }) => {
         type='submit'
         variant='outlined'
       >
-        Add Post
+        {postData ? 'Save' : 'Add Post'}
       </Button>
     </form>
   )
