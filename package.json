@@ -1,7 +1,7 @@
 {
-  "name": "my-dev-journal_electron",
+  "name": "markdown-notes",
   "version": "0.1.0",
-  "description": "Application for keeping track of learnt stuff. Application itself is a learning experience for me",
+  "description": "Electron application for creating notes",
   "author": "Royserg",
   "main": "public/electron.js",
   "build": {
@@ -61,7 +61,6 @@
     "concurrently": "^5.1.0",
     "electron": "^8.1.1",
     "electron-builder": "^22.4.1",
-    "standard": "^14.3.3",
-    "wait-on": "^4.0.1"
+    "standard": "^14.3.3"
   }
 }
